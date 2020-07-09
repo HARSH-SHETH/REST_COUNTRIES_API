@@ -5,8 +5,49 @@
 </head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <script src="https://kit.fontawesome.com/657bf37bc3.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap" rel="stylesheet">
+  <link href="index.css" rel="stylesheet" type="text/css">
 <body>
-<script type="text/javascript" src="index.js"></script>
+    <section class="header">
+        <header>
+            <div>
+                <h1>Where in the world?</h1>
+            </div>
+            <div>
+                <span><i class="far fa-moon"></i>  Dark Mode</span>
+            </div>
+        </header>
+    </section>
+
+    <section class="filter">
+        <div>
+            <form class="filter_elements">
+                <span><i class="fas fa-search"></i></span>
+                <input type="text" placeholder="Search for a country...">
+            </form>
+            <span class="filter_elements">
+                Filter by Region 
+                <span><i class="fas fa-angle-down"></i></span>
+            </span>
+        </div>
+    </section>
+    <div class="filter_regions">
+        <ul>
+            <li data-region="africa">Africa</li>
+            <li data-region="america">America</li>
+            <li data-region="asia">Asia</li>
+            <li data-region="europe">Europe</li>
+            <li data-region="oceania">Oceania</li>
+            <ul>
+    </div>
+    
+    <section class="countries">
+        <div>
+        </div>
+    </section>
+
+<script src="index.js"></script>
 </body>
 </html>
 
