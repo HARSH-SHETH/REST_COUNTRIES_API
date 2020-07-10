@@ -1,9 +1,9 @@
 :root{
   --font_size: 14px;
-  --header_bg: hsl(0, 0%, 100%);
-  --body_bg: hsl(0, 0%, 98%);
-  --shadow: #f3f3f3;
-  --text_col: hsl(200, 15%, 8%);
+  --header_bg:hsl(0, 0%, 100%);
+  --body_bg:hsl(0, 0%, 98%);
+  --shadow:#f3f3f3;
+  --text_col:hsl(200, 15%, 8%);
 }
 *{
   padding: 0px; 

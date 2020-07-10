@@ -1,6 +1,7 @@
 var regions = document.body.querySelectorAll(".filter_regions li");
 var countryDiv = document.body.querySelector(".countries > div");
 var filterDiv = document.querySelector(".filter_regions");
+var theme = document.querySelector(".theme");
 initiate();
 function initiate(){
   showCountries("all");
@@ -42,13 +43,24 @@ function findCountry(){
 }
 // TOGGLE THEME BY CHANGING THE CSS VARIABLES
 function toggleTheme(){
-  document.querySelector(".header i").addEventListener("click", function(){
+  theme.addEventListener("click", function(){
     root = document.documentElement;
-    root.style.setProperty("--header_bg", "hsl(209, 23%, 22%)");
-    root.style.setProperty("--body_bg", "hsl(207, 26%, 17%)");
-    root.style.setProperty("--text_col", "hsl(0, 0%, 100%)");
-    root.style.setProperty("--shadow", "hsl(210,17%,15%)");
-  })
+    if(getComputedStyle(root, null).getPropertyValue("--header_bg") == "hsl(0, 0%, 100%)"){
+      root.style.setProperty("--header_bg", "hsl(209, 23%, 22%)");
+      root.style.setProperty("--body_bg", "hsl(207, 26%, 17%)");
+      root.style.setProperty("--text_col", "hsl(0, 0%, 100%)");
+      root.style.setProperty("--shadow", "hsl(210,17%,15%)");
+      this.parentElement.innerHTML = "<i class=\"fas fa-sun theme\"></i> White Mode";
+    }else{
+      root.style.setProperty("--header_bg", "hsl(0, 0%, 100%)");
+      root.style.setProperty("--body_bg", "hsl(0, 0%, 98%)");
+      root.style.setProperty("--text_col", "hsl(200, 15%, 8%)");
+      root.style.setProperty("--shadow", "#f3f3f3");
+      this.parentElement.innerHTML = "<i class=\"far fa-moon theme\"></i> Dark Mode";
+    }
+    theme = document.querySelector(".theme");
+    toggleTheme();
+  });
 }
 
 // DISPLAY COUNTRIES WITH THE GIVEN KEYWORD
