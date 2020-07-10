@@ -32,8 +32,12 @@ function filterByRegion(){
 // EXTRACT TEXT FROM INPUT AND DISPLAY THE COUNTRY
 function findCountry(){
   document.querySelector("input").addEventListener("keypress", function(){
-    if(event.which == 13)
-      showCountries("name/"+this.value.toLowerCase());
+    if(event.which == 13){
+      if(this.value == "")
+        showCountries("all");
+      else
+        showCountries("name/" + this.value.toLowerCase());
+    }
   });
 }
 // TOGGLE THEME BY CHANGING THE CSS VARIABLES
