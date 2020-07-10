@@ -52,8 +52,12 @@ body{
 }
 .filter_elements{
   background: var(--header_bg);
-  box-shadow: 2px 2px 4px 2px var(--shadow),  -2px -2px 4px 2px var(--shadow);
+  box-shadow: 2px 2px 2px 1px var(--shadow),  -2px -2px 2px 1px var(--shadow);
   height: 50px;
+  border-radius: 5px;
+}
+.filter_elements i{
+  cursor: pointer;
 }
 .filter form{
   display: flex;
@@ -71,11 +75,12 @@ body{
 .filter_regions{
   display: none;
   position: absolute; 
-  top: 168px; 
-  right: 68px; 
-  width: 185px; 
+  top: 163px; 
+  right: 67px; 
+  width: 183px; 
   border-radius: 5px; 
   background: var(--header_bg);
+  box-shadow: 2px 2px 2px 1px var(--shadow),  -2px -2px 2px 1px var(--shadow);
 }
 .filter_regions ul{
   margin: 20px 0px;
