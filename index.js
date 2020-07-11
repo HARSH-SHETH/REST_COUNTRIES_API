@@ -34,10 +34,14 @@ function filterByRegion(){
 function findCountry(){
   document.querySelector("input").addEventListener("keypress", function(){
     if(event.which == 13){
+      const element = document.querySelector("form").addEventListener("submit", function(e){
+        e.preventDefault();
+      });
       if(this.value == "")
         showCountries("all");
       else
         showCountries("name/" + this.value.toLowerCase());
+      this.value = "";
     }
   });
 }
@@ -81,8 +85,8 @@ function showCountries(keyString){
       Intl.NumberFormat().format(data[i].population) + 
         "</span></p>" +
         "<p>Region: <span>" + data[i].region + "</span></p>" +
-        "<p>Capital: <span>" + data[i].capital + "</span></p>"
-      "</div></div>";
+        "<p>Capital: <span>" + data[i].capital + "</span></p>" +
+        "</div></div>";
   }
   request.send();
 }
