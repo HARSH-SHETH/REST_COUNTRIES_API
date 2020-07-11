@@ -4,6 +4,7 @@
   --body_bg:hsl(0, 0%, 98%);
   --shadow:#f3f3f3;
   --text_col:hsl(200, 15%, 8%);
+  --info_text_col:hsl(205, 23%, 22%);
 }
 *{
   padding: 0px; 
@@ -125,5 +126,5 @@ body{
   font-weight: 600;
 }
 .info span{
-  color: hsl(209, 23%, 22%);
+  color: var(--info_text_col);
 }

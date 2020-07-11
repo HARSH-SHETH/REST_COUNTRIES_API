@@ -50,12 +50,14 @@ function toggleTheme(){
       root.style.setProperty("--body_bg", "hsl(207, 26%, 17%)");
       root.style.setProperty("--text_col", "hsl(0, 0%, 100%)");
       root.style.setProperty("--shadow", "hsl(210,17%,15%)");
+      root.style.setProperty("--info_text_col", "hsl(209, 9%, 91%)");
       this.parentElement.innerHTML = "<i class=\"fas fa-sun theme\"></i> White Mode";
     }else{
       root.style.setProperty("--header_bg", "hsl(0, 0%, 100%)");
       root.style.setProperty("--body_bg", "hsl(0, 0%, 98%)");
       root.style.setProperty("--text_col", "hsl(200, 15%, 8%)");
       root.style.setProperty("--shadow", "#f3f3f3");
+      root.style.setProperty("--info_text_col", "hsl(205, 23%, 22%)");
       this.parentElement.innerHTML = "<i class=\"far fa-moon theme\"></i> Dark Mode";
     }
     theme = document.querySelector(".theme");
