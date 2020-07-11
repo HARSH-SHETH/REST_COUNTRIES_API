@@ -34,6 +34,7 @@ function filterByRegion(){
 function findCountry(){
   document.querySelector("input").addEventListener("keypress", function(){
     if(event.which == 13){
+      // PREVENT FORM FROM SUBMITTING
       const element = document.querySelector("form").addEventListener("submit", function(e){
         e.preventDefault();
       });
