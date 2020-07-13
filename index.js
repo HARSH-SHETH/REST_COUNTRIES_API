@@ -2,6 +2,7 @@ var regions = document.body.querySelectorAll(".filter_regions li");
 var countryDiv = document.body.querySelector(".countries > div");
 var filterDiv = document.querySelector(".filter_regions");
 var theme = document.querySelector(".theme");
+var filterForm = document.querySelector(".filter");
 initiate();
 function initiate(){
   showCountries("all");
@@ -72,22 +73,42 @@ function toggleTheme(){
 
 // DISPLAY COUNTRIES WITH THE GIVEN KEYWORD
 function showCountries(keyString){
-  var request = new XMLHttpRequest();
-  request.open("GET", "https://restcountries.eu/rest/v2/"+ keyString, true);
-  request.responseType = 'json';
-  request.onload = function(){
-    var data = request.response;
+  getXmlData(keyString, function(data){
     countryDiv.innerHTML = "";
     for(var i = 0; i < data.length; i++)
       countryDiv.innerHTML +=
       "<div><img src=\"" + data[i].flag + "\"><div class=\"info\">" +
-      "<h1>" + data[i].name + "</h1>" + 
+      "<h1 data-name=\"" + data[i].name.toLowerCase() + "\">" + data[i].name + "</h1>" + 
         "<p>Population: <span>" + 
       Intl.NumberFormat().format(data[i].population) + 
         "</span></p>" +
         "<p>Region: <span>" + data[i].region + "</span></p>" +
         "<p>Capital: <span>" + data[i].capital + "</span></p>" +
         "</div></div>";
+    showCountryDetail();
+  });
+}
+
+// ADD EVENT HANDLER TO EACH COUNTRY DIV
+function showCountryDetail(){
+  var country = document.querySelectorAll(".countries > div > div");
+  country.forEach(function(c){
+    c.addEventListener("click", function(){
+      removeAll(filterForm);  // SET DISPLAY TO NONE
+      removeAll(country); // SET DISPLAY TO NONE;
+      getXmlData("name/" + this.querySelector("h1").getAttribute("data-name"), function(data){
+      });
+    });
+  });
+}
+
+function getXmlData(keyString, callback){
+  var request = new XMLHttpRequest();
+  request.open("GET", "https://restcountries.eu/rest/v2/"+ keyString, true);
+  request.responseType = 'json';
+  var data;
+  request.onload = function(){
+    callback(request.response);
   }
   request.send();
 }
