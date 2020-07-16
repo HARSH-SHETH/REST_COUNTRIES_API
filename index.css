@@ -128,3 +128,69 @@ body{
 .info span{
   color: var(--info_text_col);
 }
+/*==========COUNTRY DETAIL PAGE==========*/
+.country{
+  display: none;
+  width: 90%; 
+  margin: 0 auto;
+}
+.back{
+  width: 90px;
+  height: 25px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px var(--shadow);
+  background: var(--header_bg);
+  color: var(--text_col);
+}
+.country > div{
+  display: grid; 
+  grid-template-columns: 450px 1fr;
+  margin-top: 50px;
+}
+.countryFlag{
+  height: 300px;
+}
+.countryFlag img{
+  width: 450px; 
+  height: 300px;
+}
+.countryDetail{
+  margin-left: 100px; 
+  margin-top: 30px;
+}
+.countryDetail h1{
+  margin-bottom: 30px;
+}
+.countryDetail > div:nth-of-type(1){
+  display: grid; 
+  grid-template-columns: 350px 1fr;
+}
+.countryDetail p{
+  margin-bottom: 10px;
+  color: var(--text_col);
+  font-weight: 600;
+}
+.countryDetail span{
+  color: var(--info_text_col);
+  font-weight: 500;
+}
+.border_countries{
+  display: grid;
+  grid-template-columns: 120px 1fr;
+}
+.buttons > span{
+  color: var(--text_col);
+  font-weight: 600;
+}
+.buttons button{
+  width: 90px; 
+  height: 25px; 
+  border: none;
+  box-shadow: 2px 2px 5px var(--shadow);
+  background: var(--header_bg);
+  color: var(--info_text_col);
+  margin-left: 10px;
+  margin-bottom: 10px;
+  font-weight: 500;
+}

@@ -2,7 +2,7 @@ var regions = document.body.querySelectorAll(".filter_regions li");
 var countryDiv = document.body.querySelector(".countries > div");
 var filterDiv = document.querySelector(".filter_regions");
 var theme = document.querySelector(".theme");
-var filterForm = document.querySelector(".filter");
+var filterForm = document.querySelectorAll(".filter");
 initiate();
 function initiate(){
   showCountries("all");
@@ -94,19 +94,72 @@ function showCountryDetail(){
   var country = document.querySelectorAll(".countries > div > div");
   country.forEach(function(c){
     c.addEventListener("click", function(){
-      removeAll(filterForm);  // SET DISPLAY TO NONE
-      removeAll(country); // SET DISPLAY TO NONE;
-      getXmlData("name/" + this.querySelector("h1").getAttribute("data-name"), function(data){
+      toggleDisplay(filterForm, "none");  // SET DISPLAY TO NONE
+      toggleDisplay(country, "none"); // SET DISPLAY TO NONE;
+      var keyString = "name/" + this.querySelector("h1").getAttribute("data-name") + "?fullText=true";
+      var borderString = "";
+      getXmlData(keyString, function(data){
+        document.querySelector(".countryFlag").innerHTML = 
+          "<img src=\"" + data[0].flag + "\">";
+        document.querySelector(".countryDetail").innerHTML = "<h1>" + data[0].name + "</h1>" + 
+          "<div>" +
+          "<div>"+
+          "<p>" + "Native Name: <span>" + data[0].nativeName + "</span></p>" + 
+          "<p>" + "Population: <span>" + Intl.NumberFormat().format(data[0].population) + "</span></p>" + 
+          "<p>" + "Region: <span>" + data[0].region + "</span></p>" + 
+          "<p>" + "Sub Region: <span>" + data[0].subregion + "</span></p>" + 
+          "<p>" + "Capital: <span>" + data[0].capital + "</span></p>" + 
+          "</div>" + 
+          "<div>" + 
+          "<p>" + "Top Level Domain: <span>" + data[0].topLevelDomain[0] + "</span></p>" + 
+          "<p>" + "Currencies: <span>" + data[0].currencies[0].name + "</span></p>" + 
+          "<p>" + "Languages: <span>"  + getLanguages(data[0].languages)     + "</span></p>" +
+          "</div>" + 
+          "</div>" +
+          "<div class=\"border_countries\">" + 
+          "<span>Border Countries: </span>" +
+          "<div class=\"buttons\"></div>" +
+          "</div>";
+        var array = data[0].borders;
+        for(var i = 0; i < array.length; i++){
+          borderString += array[i].toLowerCase() + ";";
+        }
+        console.log(borderString);
+        keyString = "alpha?codes=" + borderString;
+        borderString = getXmlData(keyString, function(data){
+          for(var i = 0; i < data.length; i++){
+            document.querySelector(".buttons").innerHTML += "<button>" + data[i].name.split(" ")[0] + "</button>";
+          }
+        });
+        toggleDisplay(document.querySelectorAll(".country"), "block");
       });
     });
   });
 }
 
+// return language string
+function getLanguages(array){
+  var langString = "";
+  for(var i = 0; i < array.length; i++){
+    if(i == array.length-1)
+      langString += array[i].name;
+    else
+      langString += array[i].name + ", ";
+  }; 
+  return langString;
+}
+
+// set display to none 
+function toggleDisplay(element, display){
+  element.forEach(function(e){
+    e.style.display = display;
+  });
+}
+// MAKE A API REQUEST AND EXECUTE CALLBACK
 function getXmlData(keyString, callback){
   var request = new XMLHttpRequest();
   request.open("GET", "https://restcountries.eu/rest/v2/"+ keyString, true);
   request.responseType = 'json';
-  var data;
   request.onload = function(){
     callback(request.response);
   }
