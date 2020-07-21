@@ -6,5 +6,5 @@
 
 ### Using : 
 > - HTML
-  - CSS
-  - Vanilla JS
+> - CSS
+> - Vanilla JS
