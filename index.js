@@ -99,41 +99,60 @@ function showCountryDetail(){
       var keyString = "name/" + this.querySelector("h1").getAttribute("data-name") + "?fullText=true";
       var borderString = "";
       getXmlData(keyString, function(data){
-        document.querySelector(".countryFlag").innerHTML = 
-          "<img src=\"" + data[0].flag + "\">";
-        document.querySelector(".countryDetail").innerHTML = "<h1>" + data[0].name + "</h1>" + 
-          "<div>" +
-          "<div>"+
-          "<p>" + "Native Name: <span>" + data[0].nativeName + "</span></p>" + 
-          "<p>" + "Population: <span>" + Intl.NumberFormat().format(data[0].population) + "</span></p>" + 
-          "<p>" + "Region: <span>" + data[0].region + "</span></p>" + 
-          "<p>" + "Sub Region: <span>" + data[0].subregion + "</span></p>" + 
-          "<p>" + "Capital: <span>" + data[0].capital + "</span></p>" + 
-          "</div>" + 
-          "<div>" + 
-          "<p>" + "Top Level Domain: <span>" + data[0].topLevelDomain[0] + "</span></p>" + 
-          "<p>" + "Currencies: <span>" + data[0].currencies[0].name + "</span></p>" + 
-          "<p>" + "Languages: <span>"  + getLanguages(data[0].languages)     + "</span></p>" +
-          "</div>" + 
-          "</div>" +
-          "<div class=\"border_countries\">" + 
-          "<span>Border Countries: </span>" +
-          "<div class=\"buttons\"></div>" +
-          "</div>";
-        var array = data[0].borders;
-        for(var i = 0; i < array.length; i++){
-          borderString += array[i].toLowerCase() + ";";
-        }
-        console.log(borderString);
-        keyString = "alpha?codes=" + borderString;
-        borderString = getXmlData(keyString, function(data){
-          for(var i = 0; i < data.length; i++){
-            document.querySelector(".buttons").innerHTML += "<button>" + data[i].name.split(" ")[0] + "</button>";
-          }
-        });
-        toggleDisplay(document.querySelectorAll(".country"), "block");
+        HTMLCountryDetails(data);
       });
     });
+  });
+}
+function HTMLCountryDetails(data){
+  document.querySelector(".countryFlag").innerHTML = 
+    "<img src=\"" + data[0].flag + "\">";
+  document.querySelector(".countryDetail").innerHTML = "<h1>" + data[0].name + "</h1>" + 
+    "<div>" +
+    "<div>"+
+    "<p>" + "Native Name: <span>" + data[0].nativeName + "</span></p>" + 
+    "<p>" + "Population: <span>" + Intl.NumberFormat().format(data[0].population) + "</span></p>" + 
+    "<p>" + "Region: <span>" + data[0].region + "</span></p>" + 
+    "<p>" + "Sub Region: <span>" + data[0].subregion + "</span></p>" + 
+    "<p>" + "Capital: <span>" + data[0].capital + "</span></p>" + 
+    "</div>" + 
+    "<div>" + 
+    "<p>" + "Top Level Domain: <span>" + data[0].topLevelDomain[0] + "</span></p>" + 
+    "<p>" + "Currencies: <span>" + data[0].currencies[0].name + "</span></p>" + 
+    "<p>" + "Languages: <span>"  + getLanguages(data[0].languages)     + "</span></p>" +
+    "</div>" + 
+    "</div>" +
+    "<div class=\"border_countries\">" + 
+    "<span>Border Countries: </span>" +
+    "<div class=\"buttons\"></div>" +
+    "</div>";
+  var array = data[0].borders;
+  var borderString = "";
+  for(var i = 0; i < array.length; i++){
+    borderString += array[i].toLowerCase() + ";";
+  }
+  var keyString = "alpha?codes=" + borderString;
+  borderString = getXmlData(keyString, function(data){
+    for(var i = 0; i < data.length; i++){
+      document.querySelector(".buttons").innerHTML += "<button>" + data[i].name.split(" ")[0] + "</button>";
+    }
+    var buttons = document.querySelectorAll(".buttons button");
+    buttons.forEach(function(b){
+      b.addEventListener("click", function(){
+        var countryName = this.innerHTML.toLowerCase();
+        keyString = "name/" + countryName + "?fullText=true";
+        getXmlData(keyString, function(data){
+          HTMLCountryDetails(data);
+        });
+      });
+    })
+  });
+  toggleDisplay(document.querySelectorAll(".country"), "block");
+  document.querySelector(".back").addEventListener("click", function(){
+    toggleDisplay(document.querySelectorAll(".country"), "none");
+    toggleDisplay(filterForm, "flex");  // SET DISPLAY TO NONE
+    var country = document.querySelectorAll(".countries > div > div");
+    toggleDisplay(country, "block"); // SET DISPLAY TO NONE;
   });
 }
 
