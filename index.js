@@ -77,8 +77,8 @@ function showCountries(keyString){
     countryDiv.innerHTML = "";
     for(var i = 0; i < data.length; i++)
       countryDiv.innerHTML +=
-      "<div><img src=\"" + data[i].flag + "\"><div class=\"info\">" +
-      "<h1 data-name=\"" + data[i].name.toLowerCase() + "\">" + data[i].name + "</h1>" + 
+      "<div><img src=\"" + data[i].flags.svg + "\"><div class=\"info\">" +
+      "<h1 data-name=\"" + data[i].name.official.toLowerCase() + "\">" + data[i].name.official + "</h1>" + 
         "<p>Population: <span>" + 
       Intl.NumberFormat().format(data[i].population) + 
         "</span></p>" +
@@ -177,7 +177,7 @@ function toggleDisplay(element, display){
 // MAKE A API REQUEST AND EXECUTE CALLBACK
 function getXmlData(keyString, callback){
   var request = new XMLHttpRequest();
-  request.open("GET", "https://restcountries.eu/rest/v2/"+ keyString, true);
+  request.open("GET", "https://restcountries.com/v3.1/"+ keyString, true);
   request.responseType = 'json';
   request.onload = function(){
     callback(request.response);
